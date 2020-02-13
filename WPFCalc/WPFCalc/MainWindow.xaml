@@ -4,9 +4,171 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFCalc"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Calculator" Height="400" Width="225">
+    
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="NumericButtons">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderBrush" Value="#B0B0B0" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush SpreadMethod="Reflect" StartPoint="0,0" EndPoint="0,0.5">
+                        <GradientStop Color="#CCE5FF" Offset="0.1"></GradientStop>
+                        <GradientStop Color="#F8F7FF " Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Lime"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         
+        <Style TargetType="Button" x:Key="FunctionalButtons">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderBrush" Value="#B0B0B0" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush SpreadMethod="Pad" StartPoint="0,0" EndPoint="0,0.5">
+                        <GradientStop Color="#CCE5FF" Offset="0.5"></GradientStop>
+                        <GradientStop Color="#BDDFFF" Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Lime"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.07*"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="1.07*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="4.5*" />
+            <RowDefinition Height="1.05*"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="1.05*" />
+        </Grid.RowDefinitions>
+        
+        <!--<Button MinWidth="45" Content="File"/>-->
+
+        <Grid x:Name="OutputGrid" Grid.Row="1" Grid.ColumnSpan="5">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="2*"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Rectangle Grid.RowSpan="3">
+                <Rectangle.Fill>
+                    <LinearGradientBrush SpreadMethod="Pad" StartPoint="0,0" EndPoint="0,0.5">
+                        <GradientStop Color="#CCE5FF" Offset="0.1"></GradientStop>
+                        <GradientStop Color="#F8F7FF" Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Border Grid.RowSpan="3" BorderThickness="7.5, 7.5, 7.5, 5" BorderBrush="#CCE5FF">
+                <TextBox VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                         BorderThickness="0" Background="Transparent"
+                         Text="20000000" FontSize="22" 
+                         IsReadOnly="True"/>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="5"
+                BorderThickness="7.5, 5, 7.5, 7.5" BorderBrush="#CCE5FF" 
+                Background="#CCE5EF"/>
+
+        <!-- Numeric Buttons -->
+        <Button Grid.Row="6" Grid.ColumnSpan="2" Margin="7.5 2.5 2.5 7.5"
+                Content="0"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="5" Margin="7.5 2.5 2.5 2.5"
+                Content="1"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="5" Grid.Column="1" Margin="2.5 2.5 2.5 2.5"
+                Content="2"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="5" Grid.Column="2" Margin="2.5 2.5 2.5 2.5"
+                Content="3"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="4" Margin="7.5 2.5 2.5 2.5"
+                Content="4"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="4" Grid.Column="1" Margin="2.5 2.5 2.5 2.5"
+                Content="5"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="4" Grid.Column="2" Margin="2.5 2.5 2.5 2.5"
+                Content="6"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="3" Margin="7.5 2.5 2.5 2.5"
+                Content="7"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="3" Grid.Column="1" Margin="2.5 2.5 2.5 2.5"
+                Content="8"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="3" Grid.Column="2" Margin="2.5 2.5 2.5 2.5"
+                Content="9"
+                Style="{StaticResource NumericButtons}" />
+        <Button Grid.Row="6" Grid.Column="2" Margin="2.5 2.5 2.5 7.5"
+                Content="."
+                Style="{StaticResource NumericButtons}" />
+          
+        <!-- Functional Buttons -->
+        <!-- Operation Buttons -->
+        <Button Grid.Row="6" Grid.Column="3" Margin="2.5 2.5 2.5 7.5"
+                Content="+"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="5" Grid.Column="3" Margin="2.5 2.5 2.5 2.5"
+                Content="-"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="4" Grid.Column="3" Margin="2.5 2.5 2.5 2.5"
+                Content="*"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="3" Grid.Column="3" Margin="2.5 2.5 2.5 2.5"
+                Content="/"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="5" Grid.Column="4" Grid.RowSpan="2" Margin="2.5 2.5 7.5 7.5"
+                Content="="
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="4" Grid.Column="4" Margin="2.5 2.5 7.5 2.5"
+                Content="1/x"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="3" Grid.Column="4" Margin="2.5 2.5 7.5 2.5"
+                Content="√"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="2" Grid.Column="4" Margin="2.5 5 7.5 2.5"
+                FontSize="11"
+                Content="cos(x)"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="2" Grid.Column="3" Margin="2.5 5 2.5 2.5"
+                Content="±"
+                Style="{StaticResource FunctionalButtons}" />
+
+        <!-- Edit buttons-->
+        <Button Grid.Row="2" Margin="7.5 5 2.5 2.5"
+                Style="{StaticResource FunctionalButtons}" 
+                Content="←" />
+        <Button Grid.Row="2" Grid.Column="1" Margin="2.5 5 2.5 2.5"
+                Content="CE"
+                Style="{StaticResource FunctionalButtons}" />
+        <Button Grid.Row="2" Grid.Column="2" Margin="2.5 5 2.5 2.5"
+                Content="C"
+                Style="{StaticResource FunctionalButtons}" />
     </Grid>
 </Window>
