@@ -75,19 +75,24 @@
 
             <Rectangle Grid.RowSpan="3">
                 <Rectangle.Fill>
-                    <LinearGradientBrush SpreadMethod="Pad" StartPoint="0,0" EndPoint="0,0.5">
+                    <LinearGradientBrush SpreadMethod="Pad" StartPoint="0,0" EndPoint="0, 0.5">
                         <GradientStop Color="#CCE5FF" Offset="0.1"></GradientStop>
                         <GradientStop Color="#F8F7FF" Offset="1"></GradientStop>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Border Grid.RowSpan="3" BorderThickness="7.5, 7.5, 7.5, 5" BorderBrush="#CCE5FF">
-                <TextBox VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                         BorderThickness="0" Background="Transparent"
-                         Text="20000000" FontSize="22" 
-                         IsReadOnly="True"/>
-            </Border>
+            <Border Grid.RowSpan="3" BorderThickness="7.5 7.5 7.5 5" BorderBrush="#CCE5FF" />
+            <Border Grid.Row="1" Margin ="8 0 8 0" BorderThickness="0 0 0 1" BorderBrush="LightGray"/>
+
+            <TextBox x:Name="textBox" Grid.Row="2" Margin="0 0 7.5 5"
+                     VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                     BorderThickness="0" Background="Transparent" FontSize="22" 
+                     IsReadOnly="True"/>
+
+            <Label x:Name="Label" Grid.Row="1" Margin="0 0 7.5 0"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                   FontSize="14"/>
         </Grid>
 
         <Border Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="5"
