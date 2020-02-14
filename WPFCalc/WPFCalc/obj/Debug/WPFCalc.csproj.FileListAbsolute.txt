@@ -12,3 +12,18 @@ C:\Users\Peasoon\Desktop\GayDev & C#\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.P
 C:\Users\Peasoon\Desktop\GayDev & C#\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.csproj.GenerateResource.cache
 C:\Users\Peasoon\Desktop\GayDev & C#\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.exe
 C:\Users\Peasoon\Desktop\GayDev & C#\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.pdb
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\bin\Debug\WPFCalc.exe.config
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\bin\Debug\WPFCalc.exe
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\bin\Debug\WPFCalc.pdb
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.csprojAssemblyReference.cache
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\MainWindow.baml
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\MainWindow.g.cs
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\App.g.cs
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc_MarkupCompile.cache
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.g.resources
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.Properties.Resources.resources
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.csproj.GenerateResource.cache
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.exe
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.pdb
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc_MarkupCompile.lref

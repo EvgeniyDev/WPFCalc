@@ -1,32 +1,45 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using WPFCalc.Repository;
 
 namespace WPFCalc
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        double? firstArgument; 
-        string operation = string.Empty; 
+        double? firstArgument = null; 
+        string operation = string.Empty;
+        ButtonValues _buttonValues;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            foreach (UIElement c in MainGrid.Children)
+            _buttonValues = new ButtonValues();
+
+            foreach (var element in MainGrid.Children)
             {
-                if (c is Button)
+                if (element is Button)
                 {
-                    ((Button)c).Click += Button_Click;
+                    ((Button)element).Click += Button_Click;
                 }
             }
 
-            firstArgument = null;
-            textBox.Text = "0";
+            Input = _buttonValues.ZERO;
         }
+
+        public string Input
+        {
+            get => textBox.Text;
+            set => textBox.Text = value;
+        }
+        public object Output
+        {
+            get => label.Content;
+            set => label.Content = value;
+        }
+
+
 
         /// <summary>
         /// All buttons' onClick event handler
@@ -34,42 +47,44 @@ namespace WPFCalc
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Removing 
-            if (textBox.Text == "NaN" || textBox.Text == "∞" || textBox.Text == "-")
+            if (Input == _buttonValues.NAN 
+                || Input == _buttonValues.INFINITE 
+                || Input == _buttonValues.MINUS)
             {
-                textBox.Text = "0";
+                Input = _buttonValues.ZERO;
             }
 
             string input = (string)((Button)e.OriginalSource).Content;
 
             // Clearing the texblock
-            if (input == "CE")
+            if (input == _buttonValues.CE)
             {
-                textBox.Text = "0";
+                Input = _buttonValues.ZERO;
                 return;
             }
 
             // Clearing all data and textbox
-            if (input == "C")
+            if (input == _buttonValues.C)
             {
                 firstArgument = null;
                 operation = string.Empty;
 
-                textBox.Text = "0";
-                Label.Content = string.Empty;
+                Input = _buttonValues.ZERO;
+                Output = string.Empty;
 
                 return;
             }
 
             // Backspacing input 
-            if (input == "←")
+            if (input == _buttonValues.ARROW)
             {
-                if (textBox.Text.Length == 1)
+                if (Input.Length == 1)
                 {
-                    textBox.Text = "0";
+                    Input = _buttonValues.ZERO;
                 }
                 else
                 {
-                    textBox.Text = textBox.Text.Remove(textBox.Text.Length - 1);
+                    Input = Input.Remove(Input.Length - 1);
                 }
 
                 return;
@@ -77,33 +92,33 @@ namespace WPFCalc
 
             if (double.TryParse(input, out double inputDigit))
             {
-                if (textBox.Text.Contains(".") &&
-                   (textBox.Text.Length - textBox.Text.IndexOf(".")) > 5)
+                if (Input.Contains(".") 
+                    && (Input.Length - Input.IndexOf(".")) > 5)
                 {
                     return;
                 }
 
-                if (textBox.Text == "0")
+                if (Input == _buttonValues.ZERO)
                 {
-                    textBox.Text = inputDigit.ToString();
+                    Input = inputDigit.ToString();
                 }
                 else
                 {
-                    textBox.Text += inputDigit.ToString();
+                    Input += inputDigit.ToString();
                 }
 
                 LimitsCheck(-2e6 + 1, 4e6 - 1);
             }
             else
             {
-                if (input == "±")
+                if (input == _buttonValues.PLUSMINUS)
                 {
-                    textBox.Text = textBox.Text.Replace('.', ',');
+                    Input = Input.Replace('.', ',');
 
-                    if (double.TryParse(textBox.Text, out double inputNumber))
+                    if (double.TryParse(Input, out double inputNumber))
                     {
                         inputNumber = -inputNumber;
-                        textBox.Text = inputNumber.ToString().Replace(',', '.');
+                        Input = inputNumber.ToString().Replace(',', '.');
 
                         LimitsCheck(-2e6 + 1, 4e6 - 1);
 
@@ -111,23 +126,23 @@ namespace WPFCalc
                     }
                 }
 
-                if (input == "." && !textBox.Text.Contains("."))
+                if (input == "." && !Input.Contains("."))
                 {
-                    textBox.Text += ".";
+                    Input += ".";
 
                     return;
                 }
 
-                if (input == "." && textBox.Text.Contains("."))
+                if (input == "." && Input.Contains("."))
                 {
                     return;
                 }
 
                 operation = input;
 
-                textBox.Text = textBox.Text.Replace('.', ',');
+                Input = Input.Replace('.', ',');
                 Count();
-                textBox.Text = textBox.Text.Replace(',', '.');
+                Input = Input.Replace(',', '.');
             }
         }
 
@@ -137,67 +152,73 @@ namespace WPFCalc
         private void Count()
         {
             LimitsCheck(-2e6 + 1, 4e6 - 1);
-            double temp = double.Parse(textBox.Text);
+            double temp = double.Parse(Input);
 
             if (firstArgument == null)
             {
-                switch (operation)
+                if (operation == _buttonValues.COS)
                 {
-                    case "cos(x)":
-                        textBox.Text = Math.Cos(temp).ToString("G5");
-                        Label.Content = $"cos ({temp})";
-                        break;
-                    case "1/x":
-                        textBox.Text = (1d / temp).ToString("G5");
-                        Label.Content = "1 / " + temp;
-                        break;
-                    case "√":
-                        textBox.Text = Math.Sqrt(temp).ToString("G5");
-                        Label.Content = operation + temp;
-                        break;
-                    case "+":
-                    case "-":
-                    case "*":
-                    case "/":
-                        Label.Content = temp + operation;
-                        firstArgument = temp;
-                        return;
+                    Input = Math.Cos(temp).ToString("G5");
+                    Output = $"cos ({temp})";
+                } else
+                if (operation == _buttonValues.HALF)
+                {
+                    Input = (1d / temp).ToString("G5");
+                    Output = "1 / " + temp;
+                } else
+                if (operation == _buttonValues.SQRT)
+                {
+                    Input = Math.Sqrt(temp).ToString("G5");
+                    Output = operation + temp;
+                } else
+                if (operation == _buttonValues.PLUS 
+                    || operation == _buttonValues.MINUS
+                    || operation == _buttonValues.MULTIPY
+                    || operation == _buttonValues.DIVIDE)
+                {
+                    Output = temp + operation;
+                    firstArgument = temp;
                 }
 
                 firstArgument = null;
             }
-            else if (operation != "=")
+            else if (operation != _buttonValues.EQUALS)
             {
-                if (operation == "cos(x)" || operation == "√" || operation == "1/x")
+                if (operation == _buttonValues.COS 
+                    || operation == _buttonValues.SQRT 
+                    || operation == _buttonValues.HALF)
                 {
                     return;
                 }
 
-                Label.Content = firstArgument + operation;
+                Output = firstArgument + operation;
             }
 
-            if (operation == "=" && (Label.Content != null))
+            if (operation == _buttonValues.EQUALS 
+                && (Output != null))
             {
-                switch (Label.Content.ToString()[Label.Content.ToString().Length - 1])
+                var operation = Output.ToString()[Output.ToString().Length - 1].ToString();
+                if (operation == _buttonValues.PLUS)
                 {
-                    case '+':
-                        textBox.Text = (firstArgument + double.Parse(textBox.Text)).ToString();
-                        break;
-                    case '-':
-                        textBox.Text = (firstArgument - double.Parse(textBox.Text)).ToString();
-                        break;
-                    case '*':
-                        double.TryParse((firstArgument * double.Parse(textBox.Text)).ToString(), out double FormattedResult);
-                        textBox.Text = FormattedResult.ToString("G5");
-                        break;
-                    case '/':
-                        double.TryParse((firstArgument / double.Parse(textBox.Text)).ToString(), out FormattedResult);
-                        textBox.Text = FormattedResult.ToString("G5");
-                        break;
+                    Input = (firstArgument + double.Parse(Input)).ToString();
+                } else
+                if (operation == _buttonValues.MINUS)
+                {
+                    Input = (firstArgument - double.Parse(Input)).ToString();
+                } else
+                if (operation == _buttonValues.MULTIPY)
+                {
+                    double.TryParse((firstArgument * double.Parse(Input)).ToString(), out double FormattedResult);
+                    Input = FormattedResult.ToString("G5");
+                } else
+                if (operation == _buttonValues.DIVIDE)
+                {
+                    double.TryParse((firstArgument / double.Parse(Input)).ToString(), out double FormattedResult);
+                    Input = FormattedResult.ToString("G5");
                 }
 
-                firstArgument = double.Parse(textBox.Text);
-                Label.Content = firstArgument;
+                firstArgument = double.Parse(Input);
+                Output = firstArgument;
                 firstArgument = null;
             }
         }
@@ -207,18 +228,18 @@ namespace WPFCalc
         /// </summary>
         private void LimitsCheck(double lowerBound, double upperBound)
         {
-            if (double.TryParse(textBox.Text, out double inputNumber))
+            if (double.TryParse(Input, out double inputNumber))
             {
                 if (inputNumber > upperBound)
                 {
-                    textBox.Text = upperBound.ToString();
+                    Input = _buttonValues.ZERO;
                     MessageBox.Show("Values more than 4000000 are not allowed!");
                     return;
                 }
 
                 if (inputNumber < lowerBound)
                 {
-                    textBox.Text = lowerBound.ToString();
+                    Input = _buttonValues.ZERO;
                     MessageBox.Show("Values less than -2000000 are not allowed!");
                 }
             }
