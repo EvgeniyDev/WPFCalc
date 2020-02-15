@@ -25,6 +25,7 @@ namespace WPFCalc
             }
 
             firstArgument = null;
+            Label.Content = string.Empty;
             textBox.Text = "0";
         }
 
@@ -176,9 +177,11 @@ namespace WPFCalc
                 Label.Content = firstArgument + operation;
             }
 
-            if (operation == "=" && (Label.Content != null))
+            if (operation == "=" && (Label.Content.ToString().Length > 0))
             {
-                switch (Label.Content.ToString()[Label.Content.ToString().Length - 1])
+                Label.Content += textBox.Text;
+
+                switch (Label.Content.ToString()[Label.Content.ToString().Length - textBox.Text.Length - 1])
                 {
                     case '+':
                         textBox.Text = (firstArgument + double.Parse(textBox.Text)).ToString();
@@ -194,10 +197,11 @@ namespace WPFCalc
                         double.TryParse((firstArgument / double.Parse(textBox.Text)).ToString(), out FormattedResult);
                         textBox.Text = FormattedResult.ToString("G5");
                         break;
+                    default:
+                        Label.Content = textBox.Text.Replace(textBox.Text, string.Empty);
+                        break;
                 }
 
-                firstArgument = double.Parse(textBox.Text);
-                Label.Content = firstArgument;
                 firstArgument = null;
             }
         }
