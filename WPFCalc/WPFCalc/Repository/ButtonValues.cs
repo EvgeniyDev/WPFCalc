@@ -8,7 +8,7 @@
         public string MINUS { get => "-"; }
         public string CE { get => "CE"; }
         public string C { get => "C"; }
-        public string ARROW { get => "←"; }
+        public string BACKSPACE { get => "←"; }
         public string COS { get => "cos(x)"; }
         public string HALF { get => "1/x"; }
         public string SQRT { get => "√"; }

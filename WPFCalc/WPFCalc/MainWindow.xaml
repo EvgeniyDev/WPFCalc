@@ -165,7 +165,7 @@
         <!-- Edit buttons-->
         <Button Grid.Row="2" Margin="7.5 5 2.5 2.5"
                 Style="{StaticResource FunctionalButtons}" 
-                Content="{Binding ARROW}" />
+                Content="{Binding BACKSPACE}" />
         <Button Grid.Row="2" Grid.Column="1" Margin="2.5 5 2.5 2.5"
                 Content="{Binding CE}"
                 Style="{StaticResource FunctionalButtons}" />

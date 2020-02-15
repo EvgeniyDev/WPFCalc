@@ -27,3 +27,4 @@ C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.exe
 C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc.pdb
 C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\root\Desktop\WPFCalc\WPFCalc\WPFCalc\obj\Debug\WPFCalc_MarkupCompile.lref
+C:\Users\Peasoon\Desktop\GayDev & C#\WPFCalc\WPFCalc\WPFCalc\obj\Debug\GeneratedInternalTypeHelper.g.cs

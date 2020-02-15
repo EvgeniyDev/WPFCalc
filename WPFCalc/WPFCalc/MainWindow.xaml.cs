@@ -9,7 +9,7 @@ namespace WPFCalc
     {
         double? firstArgument = null;
         string operation = string.Empty;
-        ButtonValues _buttonValues;
+        readonly ButtonValues _buttonValues;
 
         public MainWindow()
         {
@@ -40,16 +40,15 @@ namespace WPFCalc
         }
 
 
-
         /// <summary>
         /// All buttons' onClick event handler
         /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Removing
-            if (Input == _buttonValues.NAN
-                || Input == _buttonValues.INFINITE
-                || Input == _buttonValues.MINUS)
+            if (Input == _buttonValues.NAN ||
+                Input == _buttonValues.INFINITE ||
+                Input == _buttonValues.MINUS)
             {
                 Input = _buttonValues.ZERO;
             }
@@ -76,7 +75,7 @@ namespace WPFCalc
             }
 
             // Backspacing input
-            if (input == _buttonValues.ARROW)
+            if (input == _buttonValues.BACKSPACE)
             {
                 if (Input.Length == 1)
                 {
@@ -92,8 +91,8 @@ namespace WPFCalc
 
             if (double.TryParse(input, out double inputDigit))
             {
-                if (Input.Contains(".")
-                    && (Input.Length - Input.IndexOf(".")) > 5)
+                if (Input.Contains(".") &&
+                   (Input.Length - Input.IndexOf(".")) > 5)
                 {
                     return;
                 }
@@ -160,18 +159,18 @@ namespace WPFCalc
                 {
                     Input = Math.Cos(temp).ToString("G5");
                     Output = $"cos ({temp})";
-                } else
-                if (operation == _buttonValues.HALF)
+                } 
+                else if (operation == _buttonValues.HALF)
                 {
                     Input = (1d / temp).ToString("G5");
                     Output = "1 / " + temp;
-                } else
-                if (operation == _buttonValues.SQRT)
+                } 
+                else if (operation == _buttonValues.SQRT)
                 {
                     Input = Math.Sqrt(temp).ToString("G5");
                     Output = operation + temp;
-                } else
-                if (operation == _buttonValues.PLUS
+                } 
+                else if (operation == _buttonValues.PLUS
                     || operation == _buttonValues.MINUS
                     || operation == _buttonValues.MULTIPY
                     || operation == _buttonValues.DIVIDE)
@@ -179,14 +178,12 @@ namespace WPFCalc
                     Output = temp + operation;
                     firstArgument = temp;
                 }
-
-                firstArgument = null;
             }
             else if (operation != _buttonValues.EQUALS)
             {
-                if (operation == _buttonValues.COS
-                    || operation == _buttonValues.SQRT
-                    || operation == _buttonValues.HALF)
+                if (operation == _buttonValues.COS ||
+                    operation == _buttonValues.SQRT ||
+                    operation == _buttonValues.HALF)
                 {
                     return;
                 }
@@ -195,31 +192,34 @@ namespace WPFCalc
             }
 
 
-            if (operation == _buttonValues.EQUALS
-                && (Output != null))
+            if (operation == _buttonValues.EQUALS && (Output.ToString().Length > 0))
             {
-                var operation = Output.ToString()[Output.ToString().Length - 1].ToString();
+                Output += Input;
+
+                var operation = Output.ToString()[Output.ToString().Length - Input.Length - 1].ToString();
                 if (operation == _buttonValues.PLUS)
                 {
                     Input = (firstArgument + double.Parse(Input)).ToString();
-                } else
-                if (operation == _buttonValues.MINUS)
+                }
+                else if (operation == _buttonValues.MINUS)
                 {
                     Input = (firstArgument - double.Parse(Input)).ToString();
-                } else
-                if (operation == _buttonValues.MULTIPY)
+                }
+                else if (operation == _buttonValues.MULTIPY)
                 {
                     double.TryParse((firstArgument * double.Parse(Input)).ToString(), out double FormattedResult);
                     Input = FormattedResult.ToString("G5");
-                } else
-                if (operation == _buttonValues.DIVIDE)
+                }
+                else if (operation == _buttonValues.DIVIDE)
                 {
                     double.TryParse((firstArgument / double.Parse(Input)).ToString(), out double FormattedResult);
                     Input = FormattedResult.ToString("G5");
                 }
+                else
+                {
+                    Output = Input.Replace(Input, string.Empty);
+                }
 
-                firstArgument = double.Parse(Input);
-                Output = firstArgument;
                 firstArgument = null;
             }
         }
