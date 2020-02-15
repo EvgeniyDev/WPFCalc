@@ -3,11 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFCalc"
+        xmlns:da="clr-namespace:WPFCalc.Repository"
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Calculator" Height="400" Width="225">
-    
+    <Window.DataContext>
+        <da:ButtonValues/>
+    </Window.DataContext>
     <Window.Resources>
         <Style TargetType="Button" x:Key="NumericButtons">
             <Setter Property="FontSize" Value="14" />
@@ -85,7 +87,7 @@
                      BorderThickness="0" Background="Transparent" FontSize="22" 
                      IsReadOnly="True"/>
 
-            <Label x:Name="Label" Grid.Row="1" Margin="0 0 7.5 0"
+            <Label x:Name="label" Grid.Row="1" Margin="0 0 7.5 0"
                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
                    FontSize="14"/>
         </Grid>
@@ -132,43 +134,43 @@
         <!-- Functional Buttons -->
         <!-- Operation Buttons -->
         <Button Grid.Row="6" Grid.Column="3" Margin="2.5 2.5 2.5 7.5"
-                Content="+"
+                Content="{Binding PLUS}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="5" Grid.Column="3" Margin="2.5 2.5 2.5 2.5"
-                Content="-"
+                Content="{Binding MINUS}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="4" Grid.Column="3" Margin="2.5 2.5 2.5 2.5"
-                Content="*"
+                Content="{Binding MULTIPY}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="3" Grid.Column="3" Margin="2.5 2.5 2.5 2.5"
-                Content="/"
+                Content="{Binding DIVIDE}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="5" Grid.Column="4" Grid.RowSpan="2" Margin="2.5 2.5 7.5 7.5"
-                Content="="
+                Content="{Binding EQUALS}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="4" Grid.Column="4" Margin="2.5 2.5 7.5 2.5"
-                Content="1/x"
+                Content="{Binding HALF}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="3" Grid.Column="4" Margin="2.5 2.5 7.5 2.5"
-                Content="√"
+                Content="{Binding SQRT}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="2" Grid.Column="4" Margin="2.5 5 7.5 2.5"
                 FontSize="11"
-                Content="cos(x)"
+                Content="{Binding COS}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="2" Grid.Column="3" Margin="2.5 5 2.5 2.5"
-                Content="±"
+                Content="{Binding PLUSMINUS}"
                 Style="{StaticResource FunctionalButtons}" />
 
         <!-- Edit buttons-->
         <Button Grid.Row="2" Margin="7.5 5 2.5 2.5"
                 Style="{StaticResource FunctionalButtons}" 
-                Content="←" />
+                Content="{Binding ARROW}" />
         <Button Grid.Row="2" Grid.Column="1" Margin="2.5 5 2.5 2.5"
-                Content="CE"
+                Content="{Binding CE}"
                 Style="{StaticResource FunctionalButtons}" />
         <Button Grid.Row="2" Grid.Column="2" Margin="2.5 5 2.5 2.5"
-                Content="C"
+                Content="{Binding C}"
                 Style="{StaticResource FunctionalButtons}" />
     </Grid>
 </Window>
