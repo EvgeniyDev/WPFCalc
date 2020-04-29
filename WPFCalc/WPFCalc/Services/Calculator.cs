@@ -17,7 +17,7 @@ namespace WPFCalc.Services
         /// <summary>
         /// Performs inputed operation
         /// </summary>
-        public (string Input, string Output) Calculate(string calculationInput, string calculationHistory, string operation)
+        public (string calculationInput, string calculationHistory) Calculate(string calculationInput, string calculationHistory, string operation)
         {
             calculationInput = calculationInput.Replace('.', ',');
 
